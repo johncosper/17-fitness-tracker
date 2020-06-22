@@ -19,7 +19,7 @@ async function initWorkout() {
     }
 }
   
-  function tallyExercises(exercises) {
+function tallyExercises(exercises) {
     const tallied = exercises.reduce((acc, curr) => {
       if (curr.type === "resistance") {
         acc.totalWeight = (acc.totalWeight || 0) + curr.weight;
@@ -31,9 +31,9 @@ async function initWorkout() {
       return acc;
     }, {});
     return tallied;
-  }
+}
   
-  function formatDate(date) {
+function formatDate(date) {
     const options = {
       weekday: "long",
       year: "numeric",
@@ -42,9 +42,9 @@ async function initWorkout() {
     };
   
     return new Date(date).toLocaleDateString(options);
-  }
+}
   
-  function renderWorkoutSummary(summary) {
+function renderWorkoutSummary(summary) {
     const container = document.querySelector(".workout-stats");
   
     const workoutKeyMap = {
@@ -69,9 +69,9 @@ async function initWorkout() {
   
       container.appendChild(p);
     });
-  }
+}
   
-  function renderNoWorkoutText() {
+function renderNoWorkoutText() {
     const container = document.querySelector(".workout-stats");
     const p = document.createElement("p");
     const strong = document.createElement("strong");
@@ -79,7 +79,7 @@ async function initWorkout() {
   
     p.appendChild(strong);
     container.appendChild(p);
-  }
+}
   
-  initWorkout();
+initWorkout();
   
