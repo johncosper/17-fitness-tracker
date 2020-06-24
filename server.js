@@ -29,19 +29,45 @@ app.get('/exercise', (req, res) => {
 
 app.get('/api/workouts', (req, res) => {
   db.Workout.find({})
-    .then(dbWorkout => {
-      res.json(dbWorkout)
+    .then(workout => {
+      res.json(workout)
     })
       .catch(err => {
         res.json(err);
       });
 });
 
-app.post('/api/workouts', (req, res) => {
+app.post("/api/workouts", (req,res) => {
   db.Workout.create({
-    
+    day: new Date().setDate(new Date().getDate())
   })
-})
+  .then(newWorkout => {
+      res.json(newWorkout);
+  })
+  .catch(err => {
+    res.json(err);
+  });
+});
+
+app.put("/api/workouts/:id", (req,res) => {
+  db.Workout.updateOne( {_id: req.params.id }, {$push: {exercises:  [
+    {
+      "type" : req.body.type,
+      "name" : req.body.name,
+      "duration" : req.body.duration,
+      "distance" : req.body.distance,
+      "weight" : req.body.weight,
+      "reps" : req.body.reps,
+      "sets" : req.body.sets
+    }
+  ] 
+  }}).then(update => {
+    res.json(update);
+  })
+  .catch(err => {
+    res.json(err);
+  });
+});
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
   useNewUrlParser: true,
